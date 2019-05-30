@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <el-row>
-            <el-col :span="6">
+            <el-col :span="8">
                 <router-link to="/Homeproduced" style="color:#000;">
                     <div class="content-main">
                         <div class="content-main-img">
@@ -13,7 +13,7 @@
                     </div>
                 </router-link>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="8">
                 <router-link to="/Nutritionalmeals" style="color:#000;">
                     <div class="content-main">
                         <div class="content-main-img food">
@@ -25,7 +25,7 @@
                     </div>
                 </router-link>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="8">
                 <router-link to="/Studentfile" style="color:#000;">
                     <div class="content-main">
                         <div class="content-main-img">
@@ -37,7 +37,7 @@
                     </div>
                 </router-link>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="8">
                 <router-link to="/Smartmoment" style="color:#000;">
                     <div class="content-main">
                         <div class="content-main-img">
@@ -49,6 +49,30 @@
                     </div>
                 </router-link>
             </el-col>
+            <el-col :span="8">
+                <router-link to="/GrowthFileShow" style="color:#000;">
+                    <div class="content-main">
+                        <div class="content-main-img">
+                            <img src="@/assets/images/dudao.png">
+                        </div>
+                        <div class="content-main-text">
+                            成长档案
+                        </div>
+                    </div>
+                </router-link>
+            </el-col>
+            <van-col :span="8">
+                <router-link to="/Teach" style="color:#000;">
+                    <div class="content-main">
+                        <div class="content-main-img">
+                            <img src="@/assets/images/manage.png">
+                        </div>
+                        <div class="content-main-text">
+                            教学管理
+                        </div>
+                    </div>
+                </router-link>
+            </van-col>
         </el-row>
         </div>
 </template>
@@ -59,7 +83,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .content {
-  height: 3.1rem;
+//   height: 3.1rem;
   width: 100%;
   font-size: 0.26rem;
   font-family: "PingFang-SC-Light";

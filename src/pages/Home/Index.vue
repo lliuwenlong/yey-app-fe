@@ -420,7 +420,7 @@ body {
 .noticeBar {
   height: 30px;
   width: 100%;
-  margin: 0px 0px;
+  margin: 10px 0px;
 }
 .noticeBar >>> .van-notice-bar {
   height: 30px;
@@ -434,8 +434,8 @@ body {
   font-family: "PingFang-SC-Light";
   padding-left: 0.3rem;
   padding-right: 0.3rem;
-  margin-bottom: 1.2rem;
-  margin-top: 20px;
+  /* margin-bottom: 1.2rem; */
+  margin-top: 10px;
   box-sizing: border-box;
   background-color: white;
 }

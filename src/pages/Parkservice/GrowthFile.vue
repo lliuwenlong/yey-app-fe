@@ -44,7 +44,8 @@
 			getList(data) {
 				this.axios.post("/staff/record", {
 					garden_id: data.park.id,
-					class_id: data.class.id
+					class_id: data.class.id,
+					roleStatus: this.$store.state.user.userInfo.roleStatus
 				}).then(res => {
 					this.list = res.data.data
 				})

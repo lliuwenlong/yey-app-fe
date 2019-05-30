@@ -17,7 +17,8 @@
                         <p v-else style="color:red">无备课</p>
                     </span>
                     <span v-else>
-                        <van-button size="small" type="primary" @click="upload(vv.id,i,moment(week).add(i-1,'days').format('YYYY-MM-DD'))">点击上传</van-button>
+                        <span v-if="$store.state.user.userInfo.roleStatus==5" style="color:#bbb">暂无课程</span>
+                        <van-button v-else size="small" type="primary" @click="upload(vv.id,i,moment(week).add(i-1,'days').format('YYYY-MM-DD'))">点击上传</van-button>
                     </span>
                 </template>
             </el-table-column>
