@@ -90,7 +90,7 @@ import {mapState} from 'vuex';
                 dayF: false,
                 timesF1: false,
                 timesF2: false,
-                list: [],
+                list: {},
                 active: {},
                 config: {
                     park: () => {
@@ -132,6 +132,14 @@ import {mapState} from 'vuex';
                             path: '/Student/message_source',
                             name: "类别",
                             load: true //是否初始加载
+                        }
+                    },
+                    reason: () => {
+                        return {
+                            path: '/Student/showRetreatGardenReason',
+                            name: "退园",
+                            load: false, //是否初始加载
+                            gardenId: (this.active.park + 1) ? this.list.park[this.active.park].id : 0,
                         }
                     },
                     techang: () => {
@@ -197,8 +205,11 @@ import {mapState} from 'vuex';
             },
             change(key) {
                 this.data[key] = this.list[key][this.active[key]];
+                if (key == 'park') {
+                    this.getList('reason');
+                }
                 if (key == "park" && this.types.indexOf("class") != -1&&this.userInfo.roleStatus != 4&&this.userInfo.roleStatus != 5)
-                    this.getList("class")
+                    this.getList("class");
                 if (key == "park" && this.types.indexOf("techang") != -1)
                     this.getList("techang")
                 this.emit();
@@ -207,10 +218,13 @@ import {mapState} from 'vuex';
                 this.$emit("change", this.data)
             },
             getList(key) {
+                console.log(key);
                 this.axios.post(this.config[key]().path, this.config[key]())
                     .then(res => {
                         if (res.data.data && res.data.data.length != -1) {
-                            this.list[key] = res.data.data
+                            this.list[key] = key === 'reason'
+                                ? [{id: -1, name: '全部'}, ...res.data.data ]
+                                : res.data.data
                             this.list = { ...this.list }
                             this.active[key] = 0
                             this.change(key)
