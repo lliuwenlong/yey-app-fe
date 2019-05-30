@@ -1,6 +1,6 @@
 <template>
     <div class="hello">
-        <van-swipe :autoplay="2000" indicator-color="white">
+        <van-swipe :autoplay="2000" indicator-color="white" :height="200">
             <van-swipe-item>
                 <img class="swipeImg" src="@/assets/images/banner.png">
             </van-swipe-item>
@@ -31,100 +31,150 @@
             style="margin-bottom:50px;overflow: hidden;"
             v-if="userInfo.roleStatus === 2 || userInfo.roleStatus === 1"
         >
-            <van-row type="flex" justify="center">
-                <van-col span="24">
-                    <Echarts
-                        :options="options1"
-                        :ecStyle="{width: '100%', height: '150px'}"
-                        class="fl"
-                        style="width:100%"
-                    ></Echarts>
-                </van-col>
-            </van-row>
-            <van-row type="flex" justify="center">
-                <van-col span="12">
-                    <Echarts
-                        :options="options2"
-                        :ecStyle="{width: '100%', height: '150px'}"
-                        class="fl"
-                        style="width:100%"
-                    ></Echarts>
-                </van-col>
-                <van-col span="12">
-                    <Echarts
-                        :options="options3"
-                        :ecStyle="{width: '100%', height: '150px'}"
-                        class="fl"
-                        style="width:100%"
-                    ></Echarts>
-                </van-col>
-            </van-row>
-            <van-row type="flex" justify="center">
-                <van-col span="12">
-                    <Echarts
-                        :options="options4"
-                        :ecStyle="{width: '100%', height: '150px'}"
-                        class="fl"
-                        style="width:100%"
-                    ></Echarts>
-                </van-col>
-                <van-col span="12">
-                    <Echarts
-                        :options="options5"
-                        :ecStyle="{width: '100%', height: '150px'}"
-                        class="fl"
-                        style="width:100%"
-                    ></Echarts>
-                </van-col>
-            </van-row>
+            <van-swipe
+                :autoplay="0"
+                indicator-color="white"
+                class="echars-sw"
+                v-if="width !== 0"
+                :show-indicators="false"
+            >
+                <van-swipe-item>
+                    <van-row type="flex" justify="center">
+                        <van-col span="24">
+                            <div class="width: 100%">
+                                <Echarts
+                                    :options="options1"
+                                    :ecStyle="{width: `${width}px`, height: '150px'}"
+                                    :style="{width: `${width}px`}"
+                                ></Echarts>
+                            </div>
+                        </van-col>
+                    </van-row>
+                    <van-row type="flex" justify="center">
+                        <van-col span="24">
+                            <div class="width: 100%">
+                                <Echarts
+                                    :options="options1"
+                                    :ecStyle="{width: `${width}px`, height: '150px'}"
+                                    :style="{width: `${width}px`}"
+                                ></Echarts>
+                            </div>
+                        </van-col>
+                    </van-row>
+                </van-swipe-item>
+                <van-swipe-item>
+                    <div class="van-swipe-item-wrap">
+                        <van-row type="flex" justify="center">
+                            <van-col span="24">
+                                <div class="width: 100%">
+                                    <Echarts
+                                        :options="options1"
+                                        :ecStyle="{width: `${width}px`, height: '150px'}"
+                                        :style="{width: `${width}px`}"
+                                    ></Echarts>
+                                </div>
+                            </van-col>
+                        </van-row>
+                        <van-row type="flex" justify="center">
+                            <van-col span="12">
+                                <Echarts
+                                    :options="options2"
+                                    :ecStyle="{width: `${width / 2}px`, height: '150px'}"
+                                    class="fl"
+                                    :style="{width: `${width / 2}px`}"
+                                ></Echarts>
+                            </van-col>
+                            <van-col span="12">
+                                <Echarts
+                                    :options="options3"
+                                    :ecStyle="{width: `${width / 2}px`, height: '150px'}"
+                                    class="fl"
+                                    :style="{width: `${width / 2}px`}"
+                                ></Echarts>
+                            </van-col>
+                        </van-row>
+                        <van-row type="flex" justify="center">
+                            <van-col span="12">
+                                <Echarts
+                                    :options="options4"
+                                    :ecStyle="{width: `${width / 2}px`, height: '150px'}"
+                                    class="fl"
+                                    :style="{width: `${width / 2}px`}"
+                                ></Echarts>
+                            </van-col>
+                            <van-col span="12">
+                                <Echarts
+                                    :options="options5"
+                                    :ecStyle="{width: `${width / 2}px`, height: '150px'}"
+                                    class="fl"
+                                    :style="{width: `${width / 2}px`}"
+                                ></Echarts>
+                            </van-col>
+                        </van-row>
+                    </div>
+                </van-swipe-item>
+            </van-swipe>
         </div>
         <div style="margin-bottom:50px;overflow: hidden;" v-if="userInfo.roleStatus === 4">
-            <van-row type="flex" justify="center">
-                <van-col span="24">
-                    <Echarts
-                        :options="options1"
-                        :ecStyle="{width: '100%', height: '150px'}"
-                        class="fl"
-                        style="width:100%"
-                    ></Echarts>
-                </van-col>
-            </van-row>
-            <van-row type="flex" justify="center">
-                <van-col span="12">
-                    <Echarts
-                        :options="options2"
-                        :ecStyle="{width: '100%', height: '150px'}"
-                        class="fl"
-                        style="width:100%"
-                    ></Echarts>
-                </van-col>
-                <van-col span="12">
-                    <Echarts
-                        :options="options3"
-                        :ecStyle="{width: '100%', height: '150px'}"
-                        class="fl"
-                        style="width:100%"
-                    ></Echarts>
-                </van-col>
-            </van-row>
-            <van-row type="flex" justify="center">
-                <van-col span="12">
-                    <Echarts
-                        :options="options4"
-                        :ecStyle="{width: '100%', height: '150px'}"
-                        class="fl"
-                        style="width:100%"
-                    ></Echarts>
-                </van-col>
-                <van-col span="12">
-                    <Echarts
-                        :options="options5"
-                        :ecStyle="{width: '100%', height: '150px'}"
-                        class="fl"
-                        style="width:100%"
-                    ></Echarts>
-                </van-col>
-            </van-row>
+            <van-swipe
+                :autoplay="0"
+                indicator-color="white"
+                class="echars-sw"
+                v-if="width !== 0"
+                :show-indicators="false"
+            >
+                <van-swipe-item>2</van-swipe-item>
+                <van-swipe-item>
+                    <div class="van-swipe-item-wrap">
+                        <van-row type="flex" justify="center">
+                            <van-col span="24">
+                                <Echarts
+                                    :options="options1"
+                                    :ecStyle="{width: `${width}px`, height: '150px'}"
+                                    class="fl"
+                                    :style="{width: `${width}px`}"
+                                ></Echarts>
+                            </van-col>
+                        </van-row>
+                        <van-row type="flex" justify="center">
+                            <van-col span="12">
+                                <Echarts
+                                    :options="options2"
+                                    :ecStyle="{width: `${width / 2}px`, height: '150px'}"
+                                    class="fl"
+                                    :style="{width: `${width}px`}"
+                                ></Echarts>
+                            </van-col>
+                            <van-col span="12">
+                                <Echarts
+                                    :options="options3"
+                                    :ecStyle="{width: `${width / 2}px`, height: '150px'}"
+                                    class="fl"
+                                    :style="{width: `${width}px`}"
+                                ></Echarts>
+                            </van-col>
+                        </van-row>
+                        <van-row type="flex" justify="center">
+                            <van-col span="12">
+                                <Echarts
+                                    :options="options4"
+                                    :ecStyle="{width: `${width / 2}px`, height: '150px'}"
+                                    class="fl"
+                                    :style="{width: `${width}px`}"
+                                ></Echarts>
+                            </van-col>
+                            <van-col span="12">
+                                <Echarts
+                                    :options="options5"
+                                    :ecStyle="{width: `${width / 2}px`, height: '150px'}"
+                                    class="fl"
+                                    :style="{width: `${width}px`}"
+                                ></Echarts>
+                            </van-col>
+                        </van-row>
+                    </div>
+                </van-swipe-item>
+            </van-swipe>
         </div>
         <div class="title" v-if="userInfo.roleStatus === 5">
             <div class="title_top" v-for="(a,v) in InvData" :key="v">
@@ -324,7 +374,8 @@ export default {
                         }
                     }
                 ]
-            }
+            },
+            width: 0
         };
     },
     computed: {
@@ -379,6 +430,7 @@ export default {
                     console.log(this.options1);
                     // this.showData=res.data.data[0]
                 });
+            
         },
         init() {
             let savePost = {
@@ -426,6 +478,7 @@ export default {
     },
     mounted() {
         this.init();
+        this.width = document.body.offsetWidth;
     }
 };
 </script>
@@ -449,7 +502,6 @@ body {
     margin-bottom: 0.066667rem;
 }
 .van-swipe {
-    height: 200px;
     width: 100%;
 }
 .van-swipe >>> .van-swipe-item {
@@ -462,9 +514,9 @@ body {
     display: inline-block;
 }
 .noticeBar {
-  height: 30px;
-  width: 100%;
-  margin: 10px 0px;
+    height: 30px;
+    width: 100%;
+    margin: 10px 0px;
 }
 .noticeBar >>> .van-notice-bar {
     height: 30px;
@@ -472,16 +524,16 @@ body {
 }
 
 .title {
-  height: auto;
-  width: 100%;
-  color: rgb(51, 51, 51);
-  font-family: "PingFang-SC-Light";
-  padding-left: 0.3rem;
-  padding-right: 0.3rem;
-  /* margin-bottom: 1.2rem; */
-  margin-top: 10px;
-  box-sizing: border-box;
-  background-color: white;
+    height: auto;
+    width: 100%;
+    color: rgb(51, 51, 51);
+    font-family: "PingFang-SC-Light";
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    /* margin-bottom: 1.2rem; */
+    margin-top: 10px;
+    box-sizing: border-box;
+    background-color: white;
 }
 .title_top {
     height: 100%;
@@ -517,5 +569,11 @@ body {
 }
 .van-notice-bar--withicon {
     box-sizing: border-box;
+}
+.echars-sw {
+}
+.van-swipe-item-wrap {
+    height: 100%;
+    overflow: auto;
 }
 </style>

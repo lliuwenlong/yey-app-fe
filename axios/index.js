@@ -8,7 +8,7 @@ import qs from 'qs'
 
 const service = axios.create({
   // baseURL: '/static/Api', 
-  baseURL: 'http://192.168.1.24:80/Api',
+  baseURL: '/Api',
   // baseURL: 'http://192.168.43.107/Api',
   // baseURL:'http://192.168.2.4:80/Api',
   // baseURL:'',

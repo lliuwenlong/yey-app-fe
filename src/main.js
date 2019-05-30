@@ -7,7 +7,7 @@ import axios from '../axios/index';
 // import ElementUI from 'element-ui';
 import store from '../vuex';
 import 'element-ui/lib/theme-chalk/index.css';
-import {Table, TableColumn,Message, Row, Col, Upload, Input, Button} from 'element-ui';
+import { Table, TableColumn, Message, Row, Col, Upload, Input, Button, Form, FormItem, Radio, RadioButton, RadioGroup } from 'element-ui';
 import element from 'element-ui';
 import 'lib-flexible';
 import Vant from 'vant';
@@ -24,6 +24,12 @@ Vue.use(Col);
 Vue.use(Upload);
 Vue.use(Input);
 Vue.use(Button);
+Vue.use(Form);
+Vue.use(FormItem);
+Vue.use(Radio);
+Vue.use(Radio);
+Vue.use(RadioGroup);
+Vue.use(RadioButton);
 
 Vue.prototype.$message = Message;
 Vue.prototype.$echarts = echarts;
@@ -33,7 +39,7 @@ Vue.prototype.axios = axios;
 Vue.config.productionTip = false;
 router.beforeEach((toPath, from, next) => {
     const name = toPath.path.indexOf('/') === -1 ? toPath.path : toPath.path.slice(1);
-    const to = {...toPath};
+    const to = { ...toPath };
     if (to.name == null) {
         to.name = name;
     };
@@ -50,7 +56,7 @@ router.beforeEach((toPath, from, next) => {
         });
         return;
     }
-    
+
     if (to.name.toLocaleLowerCase() === 'login' && loginId) {
         next({
             path: from.fullPath,
