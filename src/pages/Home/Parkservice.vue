@@ -5,6 +5,7 @@
         <van-cell title="园务考核" is-link to="/ParkserviceAss" />
         <van-cell title="特长管理" is-link to="/Special" />
         <van-cell title="幼儿成长档案" is-link to="/GrowthFile" />
+        <van-cell title="工作日志" is-link to="/WorkLog" />
         <Menu></Menu>
     </div>
 </template>

@@ -25,6 +25,7 @@ import AdmissionsShow from '@/pages/Admissions/Show'
 import AdmissionsList from '@/pages/Admissions/AdmissionsList'
 import Resources from '@/pages/Resources'
 import WorkLog from '@/pages/WorkLog/Index'
+import WorkLogAdd from '@/pages/WorkLog/add'
 import Logdetails from '@/pages/WorkLog/Logdetails'
 
 import patrolGarden from '@/pages/patrolGarden/patrolGarden'
@@ -39,15 +40,16 @@ import Studentfile from '@/pages/My/Studentfile'
 import Addthestudent from '@/pages/My/Addthestudent'
 
 import Assess from '@/pages/Assess/Assess'
+import Assessment from '@/pages/Assess/assessment'
 
 import ParkManage from '@/pages/ParkManage/Index'
 import Finance from '@/pages/ParkManage/Finance'
 import ReserveFund from '@/pages/ParkManage/ReserveFund'
 import Statistics from '@/pages/ParkManage/Statistics'
-
 import IncomeDate from '@/pages/ParkManage/IncomeDate'
 import ExpenditureData from '@/pages/ParkManage/ExpenditureData'
 import Task from '@/pages/ParkManage/Task'
+import Financial from '@/pages/ParkManage/financial'
 
 import Teach from '@/pages/Teach/List'
 
@@ -115,6 +117,11 @@ export default new Router({
             component: WorkLog
         },
         {
+            path: '/WorkLogAdd',
+            name: 'WorkLogAdd',
+            component: WorkLogAdd
+        },
+        {
             path: '/Logdetails',
             name: 'Logdetails',
             component: Logdetails
@@ -166,6 +173,10 @@ export default new Router({
             path: "/Assess",
             name: "Assess",
             component: Assess
+        },, {
+            path: "/assessment",
+            name: "assessment",
+            component: Assessment
         }, {
             path: "/Special",
             name: "Special",
@@ -254,6 +265,10 @@ export default new Router({
             path: "/TaskManagement",
             name: "TaskManagement",
             component: Task
+        }, , {
+            path: "/financial",
+            name: "financial",
+            component: Financial
         }, {
             path: "/Describe",
             name: "Describe",

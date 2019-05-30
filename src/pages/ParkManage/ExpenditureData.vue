@@ -1,32 +1,74 @@
 <template>
     <div class="expenditure-data">
-        <Head title="收入数据" />
+        <Head title="支出数据" />
         <Fil
             :types="['park','class']"
-            :times="true"
+            :month="true"
             :timesData="[moment().subtract(1, 'month').format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')]"
             @change="filterChange"
-        />
-        <el-table :data="list" border style="margin-top: 20px">
-            <el-table-column
-            v-for="(item, key) in listTitle"
-            :key="key"
-            :label="item.name"
-            width="300px"
-            align="center"
-            @click="addFlag=true;"
-            >
-            <el-table-column label="常规" align="center" :prop="`routineMoney${item.id}`"></el-table-column>
-            <el-table-column label="均摊" align="center">
-                <el-table-column label="总额" align="center" :prop="`averageMoney${item.id}`"></el-table-column>
-                <el-table-column label="月均总额" align="center" :prop="`jtMoney${item.id}`"></el-table-column>
-            </el-table-column>
-            </el-table-column>
-            <el-table-column width="300px" align="center" label="合计">
-            <el-table-column label="实支" align="center" prop="sjMoney"></el-table-column>
-            <el-table-column label="进表实支" align="center" prop="yjMoney"></el-table-column>
-            </el-table-column>
-        </el-table>
+        /> 
+        <el-table :data="list" border>
+                <el-table-column
+                    v-for="(item, key) in listTitle"
+                    :key="key"
+                    :label="item.name"
+                    width="300px"
+                    align="center"
+                    @click="addFlag=true;"
+                >
+                    <el-table-column label="常规" align="center">
+                        <template slot-scope="scope">
+                            <el-tooltip placement="top" effect="light">
+                                <div slot="content">
+                                    时间：{{scope.row[`addtime${item.id}`]}}
+                                    <br>
+                                    类型：{{scope.row[`channel${item.id}`]}}
+                                </div>
+                                <span
+                                    @click="if(addData.type==2) getDown(scope.row['id'+item.id])"
+                                    style="display:block;cursor: pointer;"
+                                >{{scope.row['routineMoney'+item.id]}}</span>
+                            </el-tooltip>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="均摊" align="center">
+                        <el-table-column label="总额" align="center">
+                            <template slot-scope="scope">
+                                <el-tooltip placement="top" effect="light">
+                                    <div slot="content">
+                                        时间：{{scope.row[`addtime${item.id}`]}}
+                                        <br>
+                                        类型：{{scope.row[`channel${item.id}`]}}
+                                    </div>
+                                    <span
+                                        @click="if(addData.type==2&&!classId) getDown(scope.row['id'+item.id])"
+                                        style="display:block;cursor: pointer;"
+                                    >{{scope.row['averageMoney'+item.id]}}</span>
+                                </el-tooltip>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="月均总额" align="center">
+                            <template slot-scope="scope">
+                                <el-tooltip placement="top" effect="light">
+                                    <div slot="content">
+                                        时间：{{scope.row[`addtime${item.id}`]}}
+                                        <br>
+                                        类型：{{scope.row[`channel${item.id}`]}}
+                                    </div>
+                                    <span
+                                        @click="if(addData.type==2&&!classId) getDown(scope.row['id'+item.id])"
+                                        style="display:block;cursor: pointer;"
+                                    >{{scope.row['jtMoney'+item.id]}}</span>
+                                </el-tooltip>
+                            </template>
+                        </el-table-column>
+                    </el-table-column>
+                </el-table-column>
+                <el-table-column width="160px" align="center" label="合计">
+                    <el-table-column width="80px" label="实支" align="center" prop="sjMoney"></el-table-column>
+                    <el-table-column width="80px" label="进表实支" align="center" prop="yjMoney"></el-table-column>
+                </el-table-column>
+            </el-table>
     </div>
 </template>
 
@@ -61,7 +103,7 @@ export default {
                 class_id: this.classId === '' ? undefined : this.classId,
                 garden_id: this.parkId === '' ? undefined : this.parkId,
                 start: this.startTime === '' ? undefined : this.startTime,
-                end: this.endTime === '' ? undefined : this.endTime
+                // end: this.endTime === '' ? undefined : this.endTime
             }
         },
         getCauseList() {
@@ -71,11 +113,11 @@ export default {
             });
         },
         filterChange(value) {
-            const [startTime, endTime] = value.times;
+            // const [startTime, endTime] = value.times;
             this.classId = value.class.id;
-            this.park = value.park.id;
-            this.startTime = startTime;
-            this.endTime = endTime;
+            this.parkId = value.park.id;
+            this.startTime = value.month;
+            // this.endTime = endTime;
             this.getList();
         },
         getList() {

@@ -61,7 +61,7 @@
                     </dl>
                 </router-link>
             </van-col>
-            <van-col span="6"  v-if="userInfo.roleStatus === 2">
+            <van-col span="6"  v-if="userInfo.roleStatus === 2||userInfo.roleStatus === 4">
                 <router-link to="/Admissions" style="color:#000;">
                     <dl>
                         <dt>
@@ -71,7 +71,7 @@
                     </dl>
                 </router-link>
             </van-col>
-            <van-col span="6" v-if="userInfo.roleStatus === 4">
+            <!-- <van-col span="6" v-if="">
                 <router-link to="/Admissions1" style="color:#000;">
                     <dl>
                         <dt>
@@ -80,7 +80,7 @@
                         <dd>招生管理</dd>
                     </dl>
                 </router-link>
-            </van-col>
+            </van-col> -->
             <van-col span="6">
                 <router-link to="/patrolGarden" style="color:#000;">
                     <dl>

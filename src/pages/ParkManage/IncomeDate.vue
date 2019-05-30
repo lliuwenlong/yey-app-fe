@@ -1,13 +1,14 @@
 <template>
     <div>
-        <Head title="收入数据" />
+        <Head title="收入数据"/>
         <Fil
             :types="['park','class']"
-            :times="true"
+            :times="false"
+            :month="true"
             :timesData="[moment().subtract(1, 'month').format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')]"
             @change="filterChange"
         />
-        <el-table :data="list" border style="margin-top: 20px;">
+        <!-- <el-table :data="list" border style="margin-top: 20px;">
             <el-table-column label="班级" align="center" prop="className"></el-table-column>
             <el-table-column label="缴费学生" align="center" prop="studentName"></el-table-column>
             <el-table-column label="定金" align="center" prop="djprice"></el-table-column>
@@ -18,7 +19,7 @@
                 width="300px"
                 align="center"
                 @click="addFlag=true;"
-                >
+            >
                 <el-table-column
                     v-if="item.status === 1"
                     label="常规"
@@ -41,11 +42,101 @@
                     :prop="`dprice${item.id}`"
                     v-if="item.status === 2"
                 ></el-table-column>
-                </el-table-column>
-                <el-table-column width="300px" align="center" label="合计">
+            </el-table-column>
+            <el-table-column width="300px" align="center" label="合计">
                 <el-table-column label="实支" align="center" prop="sjMoney"></el-table-column>
                 <el-table-column label="进表实支" align="center" prop="yjMoney"></el-table-column>
+            </el-table-column>
+        </el-table> -->
+        <el-table :data="list" border>
+            <el-table-column label="班级" align="center" prop="className"></el-table-column>
+            <el-table-column label="缴费学生" align="center" fixed prop="studentName"></el-table-column>
+            <el-table-column label="定金" align="center" prop="djprice"></el-table-column>
+            <el-table-column
+                v-for="(item, key) in listTitle"
+                :key="key"
+                :label="item.name"
+                width="300px"
+                align="center"
+                @click="addFlag=true;"
+            >
+                <el-table-column v-if="item.status === 1" label="常规" align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip placement="top" effect="light">
+                            <div slot="content">
+                                时间：{{scope.row[`addtime${item.id}`]}}
+                                <br>
+                                类型：{{scope.row[`channel${item.id}`]}}
+                            </div>
+                            <span>{{scope.row[`routineMoney${item.id}`]}}</span>
+                        </el-tooltip>
+                    </template>
                 </el-table-column>
+                <el-table-column label="均摊" align="center" v-if="item.status === 1">
+                    <el-table-column label="总额" align="center">
+                        <template slot-scope="scope">
+                            <el-tooltip placement="top" effect="light">
+                                <div slot="content">
+                                    时间：{{scope.row[`addtime${item.id}`]}}
+                                    <br>
+                                    类型：{{scope.row[`channel${item.id}`]}}
+                                </div>
+                                <span>{{scope.row[`averageMoney${item.id}`]}}</span>
+                            </el-tooltip>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="月均总额" align="center">
+                        <template slot-scope="scope">
+                            <el-tooltip placement="top" effect="light">
+                                <div slot="content">
+                                    时间：{{scope.row[`addtime${item.id}`]}}
+                                    <br>
+                                    类型：{{scope.row[`channel${item.id}`]}}
+                                </div>
+                                <span>{{scope.row[`jtMoney${item.id}`]}}</span>
+                            </el-tooltip>
+                        </template>
+                    </el-table-column>
+                </el-table-column>
+                <el-table-column
+                    label="实退"
+                    align="center"
+                    :prop="`tprice${item.id}`"
+                    v-if="item.status === 3"
+                >
+                    <template slot-scope="scope">
+                        <el-tooltip placement="top" effect="light">
+                            <div slot="content">
+                                时间：{{scope.row[`addtime${item.id}`]}}
+                                <br>
+                                类型：{{scope.row[`channel${item.id}`]}}
+                            </div>
+                            <span>{{scope.row[`tprice${item.id}`]}}</span>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="抵费"
+                    align="center"
+                    :prop="`dprice${item.id}`"
+                    v-if="item.status === 3"
+                >
+                    <template slot-scope="scope">
+                        <el-tooltip placement="top" effect="light">
+                            <div slot="content">
+                                时间：{{scope.row[`addtime${item.id}`]}}
+                                <br>
+                                类型：{{scope.row[`channel${item.id}`]}}
+                            </div>
+                            <span>{{scope.row[`dprice${item.id}`]}}</span>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+            </el-table-column>
+            <el-table-column width="160px" align="center" label="合计" >
+                <el-table-column width="80px" label="实支" align="center" prop="sjMoney"></el-table-column>
+                <el-table-column width="80px" label="进表实支" align="center" prop="yjMoney"></el-table-column>
+            </el-table-column>
         </el-table>
     </div>
 </template>
@@ -60,11 +151,11 @@ export default {
     },
     data() {
         return {
-            classId: '',
-            parkId: '',
-            startTime: '',
-            endTime: '',
-            listTitle: '',
+            classId: "",
+            parkId: "",
+            startTime: "",
+            endTime: "",
+            listTitle: "",
             list: []
         };
     },
@@ -73,45 +164,44 @@ export default {
         Fil
     },
     methods: {
-        getTableType() {
-
-        },
+        getTableType() {},
         getParams() {
             return {
-                class_id: this.classId === '' ? undefined : this.classId,
-                garden_id: this.parkId === '' ? undefined : this.parkId,
-                start: this.startTime === '' ? undefined : this.startTime,
-                end: this.endTime === '' ? undefined : this.endTime
-            }
+                class_id: this.classId === "" ? undefined : this.classId,
+                garden_id: this.parkId === "" ? undefined : this.parkId,
+                start: this.startTime === "" ? undefined : this.startTime,
+                // end: this.endTime === "" ? undefined : this.endTime
+            };
         },
         getCauseList() {
-            this.axios.post('/Money/getCost').then(res => {
+            this.axios.post("/Money/getCost").then(res => {
                 const response = res.data.data ? res.data.data : [];
                 this.listTitle = response;
             });
         },
         filterChange(value) {
-            const [startTime, endTime] = value.times;
+            // const [startTime, endTime] = value.times;
             this.classId = value.class.id;
-            this.park = value.park.id;
-            this.startTime = startTime;
-            this.endTime = endTime;
+            this.parkId = value.park.id;
+            this.startTime = value.month;
+            // this.endTime = endTime;
             this.getList();
         },
         getList() {
-            this.axios.post("Money/getIncomeList", { ...this.getParams() })
+            this.axios
+                .post("Money/getIncomeList", { ...this.getParams() })
                 .then(res => {
-                const response = res.data.data ? res.data.data : [];
-                this.list = response;
-            });
+                    const response = res.data.data ? res.data.data : [];
+                    this.list = response;
+                });
         }
     }
-}
+};
 </script>
 
 <style lang='less' scoped>
-    .table-wraper {
-        margin-top: 20px;
-        padding: 0 10px;
-    }
+.table-wraper {
+    margin-top: 20px;
+    padding: 0 10px;
+}
 </style>

@@ -75,7 +75,7 @@ export default {
         init(types){
             console.log(types)
             let savePost = {
-                addtime:types.day,
+                // addtime:types.day,
                 garden_id:types.park.id
             }
             this.axios.post('/Money/price',savePost)

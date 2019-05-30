@@ -8,7 +8,8 @@
         <van-cell title="财务报表" is-link to="/finance" />
         <van-cell title="园所备用金" is-link to="/ReserveFund" />
         <van-cell title="资产明细" is-link to="/statistics" />
-        <van-cell title="任务管理" is-link to="/taskManagement" />
+        <van-cell title="财务收支" is-link to="/financial" />
+        <!-- <van-cell title="任务管理" is-link to="/taskManagement" /> -->
     </div>
 </template>
 
