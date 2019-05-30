@@ -23,6 +23,9 @@ import Admissions1 from '@/pages/Admissions/Admissions1'
 import AdmissionsAdd from '@/pages/Admissions/Add'
 import AdmissionsShow from '@/pages/Admissions/Show'
 import AdmissionsList from '@/pages/Admissions/AdmissionsList'
+import AddAdmissions from '@/pages/Admissions/AddAdmissions'
+import FollowupRecord from '@/pages/Admissions/FollowupRecord'
+
 import Resources from '@/pages/Resources'
 import WorkLog from '@/pages/WorkLog/Index'
 import Logdetails from '@/pages/WorkLog/Logdetails'
@@ -148,6 +151,16 @@ export default new Router({
             path: '/AdmissionsList',
             name: 'AdmissionsList',
             component: AdmissionsList
+        },
+        {
+            path: '/AddAdmissions',
+            name: 'AddAdmissions',
+            component: AddAdmissions
+        },
+        {
+            path: '/FollowupRecord',
+            name: 'FollowupRecord',
+            component: FollowupRecord
         },
         {
             path: '/Nutritionalmeals',

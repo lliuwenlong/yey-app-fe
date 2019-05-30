@@ -46,7 +46,7 @@ export default {
             this.$router.push({
                 path: '/AdmissionsList',
                 query: {
-                    data: o
+                    garden_id: o.garden_id
                 }
             });
         }

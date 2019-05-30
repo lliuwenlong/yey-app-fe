@@ -8,6 +8,14 @@
         />
         <Fil :types="['park','class','intoPark', 'reason']" :times="true" @change="change" />
         <div>
+            <div class="countNum">
+                <ul>
+                    <li>
+                        退园人数：
+                        <span>{{count}}</span>
+                    </li>
+                </ul>
+            </div>
             <el-table :data="tableData" border stripe style="width: 100%">
                 <el-table-column prop="name" label="姓名" fixed="left"></el-table-column>
                 <el-table-column prop="sex" label="性别">
@@ -41,7 +49,8 @@ export default {
             count: "",
             techang: [],
             tableData: [],
-            tuiArr: []
+            tuiArr: [],
+            count: 0
         };
     },
     methods: {
@@ -57,8 +66,18 @@ export default {
                 sourceId: types.intoPark.id,
                 start: types.times[0],
                 end: types.times[1],
-                reasonId: types.reason.id == -1 ?  undefined : types.reason.id
+                reasonId: types.reason.id == -1 ?  undefined : types.reason.id,
+                userid: this.$store.state.user.userInfo.admin_id,
+                roleStatus: this.$store.state.user.userInfo.roleStatus
             };
+            this.axios
+                .post("/Student/retreatGardenReasonNum", {
+                    gardenId: types.park.id,
+                    reasonId: types.reason.id == -1 ?  undefined : types.reason.id
+                })
+                .then(res => {
+                    this.count = res.data.data.count;
+                });
             this.axios
                 .post("/Student/record", savePost)
                 .then(res => {
@@ -104,5 +123,24 @@ tr:nth-child(odd) {
 
 tr:nth-child(even) {
     background-color: rgb(255, 255, 255);
+}
+.countNum {
+    overflow: hidden;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background: #ffffff;
+    ul {
+        float: right;
+        li {
+            list-style: none;
+            float: left;
+            margin-left: 25px;
+            padding-right: 20px;
+            font-size: 14px;
+            span {
+                color: #9bc349;
+            }
+        }
+    }
 }
 </style>
