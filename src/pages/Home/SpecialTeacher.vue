@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <el-row>
-            <el-col :span="8">
+            <el-col :span="12">
                 <router-link to="/CheckWork" style="color:#000;">
                     <div class="content-main">
                         <div class="content-main-img">
@@ -13,7 +13,7 @@
                     </div>
                 </router-link>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="12">
                 <router-link to="/SettlementDetails" style="color:#000;">
                     <div class="content-main">
                         <div class="content-main-img">
@@ -25,7 +25,7 @@
                     </div>
                 </router-link>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="12">
                 <router-link to="/CleverInstantaneous" style="color:#000;">
                     <div class="content-main">
                         <div class="content-main-img">
@@ -33,6 +33,18 @@
                         </div>
                         <div class="content-main-text">
                             聪明瞬间
+                        </div>
+                    </div>
+                </router-link>
+            </el-col>
+            <el-col :span="12">
+                <router-link to="/Teach" style="color:#000;">
+                    <div class="content-main">
+                        <div class="content-main-img">
+                            <img src="@/assets/images/manage.png">
+                        </div>
+                        <div class="content-main-text">
+                            教学管理
                         </div>
                     </div>
                 </router-link>

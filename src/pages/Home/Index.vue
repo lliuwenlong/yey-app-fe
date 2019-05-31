@@ -37,13 +37,15 @@
                 class="echars-sw"
                 v-if="width !== 0"
                 :show-indicators="false"
+                :loop="false"
             >
                 <van-swipe-item>
                     <van-row type="flex" justify="center">
                         <van-col span="24">
                             <div class="width: 100%">
                                 <Echarts
-                                    :options="options1"
+                                    v-if="list.anquan"
+                                    :options="getAnQnOptions"
                                     :ecStyle="{width: `${width}px`, height: '150px'}"
                                     :style="{width: `${width}px`}"
                                 ></Echarts>
@@ -54,11 +56,20 @@
                         <van-col span="24">
                             <div class="width: 100%">
                                 <Echarts
-                                    :options="options1"
+                                    v-if="list.zhaosheng"
+                                    :options="getZSOptions"
                                     :ecStyle="{width: `${width}px`, height: '150px'}"
                                     :style="{width: `${width}px`}"
                                 ></Echarts>
                             </div>
+                        </van-col>
+                    </van-row>
+                    <van-row type="flex" justify="center" style="margin-top: 10px;">
+                        <van-col span="12" style="text-align: center;font-size: 14px;">
+                            退园人数：{{count}}
+                        </van-col>
+                        <van-col span="12" style="text-align: center;font-size: 14px;">
+                            特长率：{{list.techeng ? list.techeng.two : 0 }}%
                         </van-col>
                     </van-row>
                 </van-swipe-item>
@@ -122,8 +133,34 @@
                 class="echars-sw"
                 v-if="width !== 0"
                 :show-indicators="false"
+                :loop="false"
             >
-                <van-swipe-item>2</van-swipe-item>
+                <van-swipe-item>
+                    <van-row type="flex" justify="center">
+                        <van-col span="24">
+                            <div class="width: 100%">
+                                <Echarts
+                                    v-if="list.anquan"
+                                    :options="getAnQnOptions"
+                                    :ecStyle="{width: `${width}px`, height: '150px'}"
+                                    :style="{width: `${width}px`}"
+                                ></Echarts>
+                            </div>
+                        </van-col>
+                    </van-row>
+                    <van-row type="flex" justify="center">
+                        <van-col span="24">
+                            <div class="width: 100%">
+                                <Echarts
+                                    v-if="list.zhaosheng"
+                                    :options="getZSOptions"
+                                    :ecStyle="{width: `${width}px`, height: '150px'}"
+                                    :style="{width: `${width}px`}"
+                                ></Echarts>
+                            </div>
+                        </van-col>
+                    </van-row>
+                </van-swipe-item>
                 <van-swipe-item>
                     <div class="van-swipe-item-wrap">
                         <van-row type="flex" justify="center">
@@ -230,6 +267,7 @@ export default {
     name: "Index",
     data() {
         return {
+            count: 0,
             InvData: [],
             tableList: [],
             msg: "Welcome to Your Vue.js App",
@@ -375,11 +413,76 @@ export default {
                     }
                 ]
             },
-            width: 0
+            width: 0,
+            list: {}
         };
     },
     computed: {
-        ...mapState("user", ["userInfo"])
+        ...mapState("user", ["userInfo"]),
+        getAnQnOptions() {
+            const name = this.list.anquan ? this.list.anquan.name : '';
+            const two = this.list.anquan ? this.list.anquan.two : 0;
+            return {
+                title: {
+                    text: `${name}: ${two}%`,
+                    x: "center",
+                    bottom: "10%"
+                },
+                series: [
+                    {
+                        name: "姓名",
+                        type: "pie",
+                        radius: "40%",
+                        center: ["50%", "35%"],
+                        data: [{ value: two}, { value: 100 - two }],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: "rgba(0, 0, 0, 0.5)"
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        }
+                    }
+                ]
+            };
+        },
+        getZSOptions() {
+            const name = this.list.zhaosheng ? this.list.zhaosheng.name : '';
+            const two = this.list.zhaosheng ? this.list.zhaosheng.two : 0;
+            return {
+                title: {
+                    text: `${name}: ${two}%`,
+                    x: "center",
+                    bottom: "10%"
+                },
+                series: [
+                    {
+                        name: "姓名",
+                        type: "pie",
+                        radius: "40%",
+                        center: ["50%", "35%"],
+                        data: [{ value: two }, { value: 100 - two }],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: "rgba(0, 0, 0, 0.5)"
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        }
+                    }
+                ]
+            };
+        }
     },
     methods: {
         noTice() {
@@ -427,10 +530,8 @@ export default {
                             ? res.data.data[0].xiaoshou
                             : 0);
                     this.options5 = obj;
-                    console.log(this.options1);
                     // this.showData=res.data.data[0]
                 });
-            
         },
         init() {
             let savePost = {
@@ -466,15 +567,23 @@ export default {
                 .post("/TeacherApp/student", tableL)
                 .then(res => {
                     this.tableList = res.data.data;
-                    console.log(res.data.data);
                 })
                 .catch(function(error) {
                     console.log(error);
                 });
+            this.axios.post("/Wages/app_tong").then(res => {
+                this.list = res.data.data.list;
+            });
         }
     },
     created() {
         this.getList();
+        this.axios
+                .post("/Student/retreatGardenReasonNum", {
+                })
+                .then(res => {
+                    this.count = res.data.data.count;
+                });
     },
     mounted() {
         this.init();
