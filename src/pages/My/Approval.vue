@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Head title="审批" />
+        <Head title="审批" right="提交申请" @click-right="onClickRight" />
         <van-tabs>
             <van-tab title="待审批">
                 <van-cell-group v-for="(v,i) in list" :key="i" @click="showFn(v)">
@@ -53,6 +53,9 @@
                 }).then(res => {
                     this.list = res.data.data;
                 })
+            },
+            onClickRight() {
+                this.$router.push('/ApplicationForSubmission');
             },
 			showFn(v){
 				this.$router.push({

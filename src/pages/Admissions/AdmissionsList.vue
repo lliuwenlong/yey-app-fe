@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Head title="目标幼儿"/>
-        <Fil :times="true" @change="getList"/>
+        <Head title="目标幼儿" right="入园登记" @click-right="onClickRight"  />
+        <Fil :times="true" @change="getList" />
         <van-cell-group v-for="(v,i) in list" :key="i">
             <van-row>
                 <van-col span="5" class="Tl">{{ v.name }}</van-col>
@@ -48,7 +48,12 @@ export default {
         },
         lookDeic(v) {
             this.$router.push({path: '/FollowupRecord', query: {id: v.id}});
-        }
+        },
+        onClickRight() {
+			this.$router.push({
+				path: '/AdmissionsAdd'
+			})
+		}
     }
 };
 </script>

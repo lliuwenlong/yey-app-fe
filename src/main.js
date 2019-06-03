@@ -7,7 +7,23 @@ import axios from '../axios/index';
 // import ElementUI from 'element-ui';
 import store from '../vuex';
 import 'element-ui/lib/theme-chalk/index.css';
-import { Table, TableColumn, Message, Row, Col, Upload, Input, Button, Form, FormItem, Radio, RadioButton, RadioGroup } from 'element-ui';
+import {
+    Table,
+    TableColumn,
+    Message,
+    Row,
+    Col,
+    Upload,
+    Input,
+    Button,
+    Form,
+    FormItem,
+    Radio,
+    RadioButton,
+    RadioGroup,
+    Tabs,
+    TabPane
+} from 'element-ui';
 import element from 'element-ui';
 import 'lib-flexible';
 import Vant from 'vant';
@@ -30,6 +46,8 @@ Vue.use(Radio);
 Vue.use(Radio);
 Vue.use(RadioGroup);
 Vue.use(RadioButton);
+Vue.use(Tabs);
+Vue.use(TabPane);
 
 Vue.prototype.$message = Message;
 Vue.prototype.$echarts = echarts;

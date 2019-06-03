@@ -200,8 +200,11 @@ export default {
             this.addData.time = time;
             this.addF = true;
         },
-        addFn() {
-            this.axios.post("/staff/addteaching", this.addData).then(res => {
+        addFn(){
+            this.axios.post("/staff/addteaching", {
+                ...this.addData,
+                type: this.$store.state.user.userInfo.roleStatus === 7 ? 1 : undefined
+            }).then(res=>{
                 this.$message({
                     message: res.data.msg,
                     type: "success"

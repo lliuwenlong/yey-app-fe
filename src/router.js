@@ -41,6 +41,7 @@ import ApprovalShow from '@/pages/My/ApprovalShow'
 import Articlewages from '@/pages/My/Articlewages'
 import Studentfile from '@/pages/My/Studentfile'
 import Addthestudent from '@/pages/My/Addthestudent'
+import ApplicationForSubmission from "@/pages/My/ApplicationForSubmission";
 
 import Assess from '@/pages/Assess/Assess'
 import Assessment from '@/pages/Assess/assessment'
@@ -270,6 +271,10 @@ export default new Router({
             path: "/Addthestudent",
             name: "Addthestudent",
             component: Addthestudent
+        }, {
+            path: "/ApplicationForSubmission",
+            name: "ApplicationForSubmission",
+            component: ApplicationForSubmission
         }, {
             path: "/Teach",
             name: "Teach",
