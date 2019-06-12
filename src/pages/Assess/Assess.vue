@@ -1,12 +1,7 @@
 <!-- 考核管理 -->
 <template>
     <div class="content">
-        <Head
-            title="考核管理"
-            :right="editF?'取消':'打分'"
-            @click-left="onClickLeft"
-            @click-right="edit"
-        />
+        <Head title="考核管理" @click-left="onClickLeft"/>
         <van-tabs @click="onClick" :class="editF?'mb':''" v-model="index">
             <van-tab title="员工考核">
                 <Fil :types="['park','assessmentStaff']" :month="true" @change="change"/>
@@ -53,8 +48,7 @@
                             v-for="(a,i) in item"
                             :key="i"
                             :title="a.staff_name"
-                            v-show="!editF"
-                                    @click="edit(a)"
+                            @click="()=>{if([1,2,3].indexOf($store.state.user.userInfo.roleStatus)!=-1) edit(a);}"
                         >
                             <span>{{a.count}} 分</span>
                         </van-cell>
@@ -69,7 +63,7 @@
                                     <van-checkbox :name="a.staffId" ref="checkboxes"/>
                                 </van-cell>
                             </van-cell-group>
-                        </van-checkbox-group> -->
+                        </van-checkbox-group>-->
                     </van-collapse-item>
                 </van-collapse>
             </van-tab>
@@ -95,7 +89,7 @@
             plain
             size="large"
             style="position:fixed; bottom:0"
-            v-show="!editF&&index==0"
+            v-show="!editF&&index==0&&[1,2,3].indexOf($store.state.user.userInfo.roleStatus)!=-1"
             @click="edit"
         >打分</van-button>
     </div>
@@ -124,7 +118,7 @@ export default {
             checked: [],
             result: [],
             editF: false,
-            index:0,
+            index: 0
         };
     },
     //方法集合
@@ -186,20 +180,19 @@ export default {
         onClick(index, title) {
             this.indexList = index;
         },
-        edit(o){
-            if(this.index===0){
-                this.editF=!this.editF
-                this.$toast('点选员工开始打分');
-            }else{
-                this.$router.push({ 
+        edit(o) {
+            if (this.index === 0) {
+                this.editF = !this.editF;
+                this.$toast("点选员工开始打分");
+            } else {
+                this.$router.push({
                     path: "/assessment",
-                    query:{
-                        staff_id:o.staffId,
-                        staff_name:o.staff_name
+                    query: {
+                        staff_id: o.staffId,
+                        staff_name: o.staff_name
                     }
                 });
             }
-            
         },
         editFn() {
             this.axios

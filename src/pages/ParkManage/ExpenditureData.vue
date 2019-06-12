@@ -3,7 +3,7 @@
         <Head title="支出数据" />
         <Fil
             :types="['park','class']"
-            :month="true"
+            :times="true"
             :timesData="[moment().subtract(1, 'month').format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')]"
             @change="filterChange"
         /> 
@@ -103,7 +103,7 @@ export default {
                 class_id: this.classId === '' ? undefined : this.classId,
                 garden_id: this.parkId === '' ? undefined : this.parkId,
                 start: this.startTime === '' ? undefined : this.startTime,
-                // end: this.endTime === '' ? undefined : this.endTime
+                end: this.endTime === '' ? undefined : this.endTime
             }
         },
         getCauseList() {
@@ -113,11 +113,11 @@ export default {
             });
         },
         filterChange(value) {
-            // const [startTime, endTime] = value.times;
+            const [startTime, endTime] = value.times;
             this.classId = value.class.id;
             this.parkId = value.park.id;
-            this.startTime = value.month;
-            // this.endTime = endTime;
+            this.startTime = startTime;
+            this.endTime = endTime;
             this.getList();
         },
         getList() {

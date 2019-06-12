@@ -150,6 +150,15 @@ import {mapState} from 'vuex';
                             load: false //是否初始加载
                         }
                     },
+                    post: ()=>{
+                        return {
+                            path: '/Staff/organization_status',
+                            name:'职务',
+                            p_id: (this.active.park + 1) ? this.list.park[this.active.park].id : 0,
+                            status: 0,
+                            load: false //是否初始加载
+                        }
+                    }
                 },
                 currentDate1: new Date(),
                 currentDate2: new Date(),
@@ -212,6 +221,8 @@ import {mapState} from 'vuex';
                     this.getList("class");
                 if (key == "park" && this.types.indexOf("techang") != -1)
                     this.getList("techang")
+                if (key == "park" && this.types.indexOf("post") != -1)
+                    this.getList("post")
                 this.emit();
             },
             emit() {

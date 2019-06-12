@@ -85,39 +85,39 @@
                 </van-cell>
             </van-cell-group>
         </van-dialog>
-        <van-dialog v-model="showF" title="标题" show-cancel-button @confirm="showFn">
-            <van-cell-group>
+        <van-dialog v-model="showF" :title="showData.tec_name" show-cancel-button @confirm="showFn">
+            <!-- <van-cell-group>
                 <van-cell title="封面">
                     <template>
                         <span>{{showData.tec_name}}</span>
                     </template>
                 </van-cell>
-            </van-cell-group>
+            </van-cell-group> -->
             <van-cell-group>
                 <van-cell title="封面">
                     <template>
-                        <img :src="'/public/image/'+showData.mian" alt="" srcset="">
+                        <img :src="'/public/img/'+showData.mian" alt="" srcset="">
                     </template>
                 </van-cell>
             </van-cell-group>
             <van-cell-group>
                 <van-cell title="文档">
                     <template>
-                        <a :href="'/public/image/'+showData.wen">{{showData.wen}}</a>
+                        <a :href="'/public/img/'+showData.wen">{{showData.wen}}</a>
                     </template>
                 </van-cell>
             </van-cell-group>
             <van-cell-group>
                 <van-cell title="图片">
                     <template>
-                        <img :src="'/public/image/'+showData.img" alt="" srcset="">
+                        <img :src="'/public/img/'+showData.img" alt="" srcset="">
                     </template>
                 </van-cell>
             </van-cell-group>
             <van-cell-group>
                 <van-cell title="视频">
                     <template>
-                        <a :href="'/public/image/'+showData.shipin">{{showData.shipin}}</a>
+                        <a :href="'/public/img/'+showData.shipin">{{showData.shipin}}</a>
                     </template>
                 </van-cell>
             </van-cell-group>

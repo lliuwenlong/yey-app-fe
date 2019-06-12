@@ -5,13 +5,13 @@
             title="工作日志"
             left="返回"
             @click-left="onClickLeft"
-            :right="$store.state.user.userInfo.roleStatus==4||$store.state.user.userInfo.roleStatus==7?'填写':false"
+            :right="$store.state.user.userInfo.roleStatus==4||$store.state.user.userInfo.roleStatus==7?'填写':''"
             @click-right="add"
         />
         <div>
-            <Fil :day="true" @change="confirm"/>
+            <Fil :day="true" :types="['park','post']" @change="confirm"/>
         </div>
-		<van-cell :title="item.addtime" v-for="(item,index) in msg" :key="index" is-link @click="staffName(item)"/>
+		<van-cell :title="`${item.addtime}_${item.staff_name}`" v-for="(item,index) in msg" :key="index" is-link @click="staffName(item)"/>
         <!-- <van-collapse v-model="activeNames" v-for="(item,index) in msg" :key="index" accordion>
             <van-collapse-item :title="index" :name="index">
                 <div
@@ -60,17 +60,17 @@ export default {
             this.show = true;
         },
         init() {
-            this.axios.post("/TeacherApp/word_log").then(res => {
-                this.msg = res.data.data;
-            });
+            this.confirm();
         },
         add() {
             this.$router.push("WorkLogAdd");
         },
-        confirm(value) {
+        confirm(value={}) {
             let savePost = {
 				staff_id:this.$store.state.user.userInfo.roleStatus==4||this.$store.state.user.userInfo.roleStatus==7?this.$store.state.user.userInfo.staff_id:null,
-                addtime: value.day
+                addtime: value.day?value.day:null,
+                garden_id: value.park?value.park.id:null,
+                position_id: value.post?value.post.id:null,
             };
             this.axios.post("/TeacherApp/word_log", savePost).then(res => {
                 if (res.data.data == null) {

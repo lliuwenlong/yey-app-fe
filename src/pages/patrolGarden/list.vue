@@ -1,6 +1,6 @@
 <template>
     <div class="list">
-        <Head title="日志列表" right="添加日志" @click-right="add"></Head>
+        <Head title="日志列表" :right="[1,2,3].indexOf($store.state.user.userInfo.roleStatus)!=-1?'添加日志':''" @click-right="add"></Head>
         <van-cell :title="v.addtime" is-link v-for="(v,i) in list" :key="i" @click="go(v.addtime)"/>
     </div>
 </template>

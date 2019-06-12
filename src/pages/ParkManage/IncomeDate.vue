@@ -3,8 +3,8 @@
         <Head title="收入数据"/>
         <Fil
             :types="['park','class']"
-            :times="false"
-            :month="true"
+            :times="true"
+            :month="false"
             :timesData="[moment().subtract(1, 'month').format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')]"
             @change="filterChange"
         />
@@ -47,7 +47,7 @@
                 <el-table-column label="实支" align="center" prop="sjMoney"></el-table-column>
                 <el-table-column label="进表实支" align="center" prop="yjMoney"></el-table-column>
             </el-table-column>
-        </el-table> -->
+        </el-table>-->
         <el-table :data="list" border>
             <el-table-column label="班级" align="center" prop="className"></el-table-column>
             <el-table-column label="缴费学生" align="center" fixed prop="studentName"></el-table-column>
@@ -133,9 +133,9 @@
                     </template>
                 </el-table-column>
             </el-table-column>
-            <el-table-column width="160px" align="center" label="合计" >
-                <el-table-column width="80px" label="实支" align="center" prop="sjMoney"></el-table-column>
-                <el-table-column width="80px" label="进表实支" align="center" prop="yjMoney"></el-table-column>
+            <el-table-column width="160px" align="center" label="合计">
+                <el-table-column width="80px" label="实入" align="center" prop="sjMoney"></el-table-column>
+                <el-table-column width="80px" label="进表实入" align="center" prop="yjMoney"></el-table-column>
             </el-table-column>
         </el-table>
     </div>
@@ -170,7 +170,7 @@ export default {
                 class_id: this.classId === "" ? undefined : this.classId,
                 garden_id: this.parkId === "" ? undefined : this.parkId,
                 start: this.startTime === "" ? undefined : this.startTime,
-                // end: this.endTime === "" ? undefined : this.endTime
+                end: this.endTime === "" ? undefined : this.endTime
             };
         },
         getCauseList() {
@@ -180,11 +180,11 @@ export default {
             });
         },
         filterChange(value) {
-            // const [startTime, endTime] = value.times;
+            const [startTime, endTime] = value.times;
             this.classId = value.class.id;
             this.parkId = value.park.id;
-            this.startTime = value.month;
-            // this.endTime = endTime;
+            this.startTime = startTime;
+            this.endTime = endTime;
             this.getList();
         },
         getList() {

@@ -10,8 +10,8 @@
 			</van-col>
 			<van-col span="16">
 				<div class='contentWen'>
-					<p>姓名&nbsp;:&nbsp;&nbsp;{{adminMsg.user_name}}</p>
-					<span>手机号 :&nbsp;&nbsp;{{adminMsg.tel}}</span>
+					<p>姓名&nbsp;:&nbsp;&nbsp;{{adminMsg.username}}</p>
+					<span>手机号 :&nbsp;&nbsp;{{adminMsg.user_name}}</span>
 				</div>
 			</van-col>
 		</van-row>

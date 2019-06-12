@@ -3,7 +3,7 @@
 	<div class='content'>
 		<Head title="采购报表" @click-left="onClickLeft" />
 		<van-cell-group>
-			<van-field @click='show = true' v-model='valueModel' placeholder="请选择时间" />
+			<van-field @click='show = true' v-model='valueModel' readonly="readonly" placeholder="请选择时间" />
 		</van-cell-group>
 		<div>
 			<table class="table">
@@ -155,19 +155,6 @@
 		position: absolute;
 		left: 0.2rem;
 
-	}
-
-	.title {
-		height: 1.28rem;
-		background-color: rgb(140, 198, 63);
-		padding-top: 0.58rem;
-		text-align: center;
-		color: rgb(255, 255, 255);
-	}
-
-	# title {
-		font-family: PingFang-SC-Medium;
-		font-size: 0.32rem;
 	}
 
 	.fonta {
