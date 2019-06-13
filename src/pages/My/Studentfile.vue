@@ -1,11 +1,13 @@
 <!-- 学生档案 -->
 <template>
     <div class="content">
-        <Head
-            title="学生档案"
-            @click-right="onClickRight"
+        <Head title="学生档案" @click-right="onClickRight"/>
+        <Fil
+            :types="['park','class','intoPark', 'reason']"
+            times
+            all
+            @change="change"
         />
-        <Fil :types="['park','class','intoPark', 'reason']" :times="true" @change="change" />
         <div>
             <div class="countNum" v-if="$store.state.user.userInfo.roleStatus != 5">
                 <ul>
@@ -37,7 +39,7 @@
 import Head from "@/components/Header.vue";
 import Fil from "@/components/Filter.vue";
 import { mapState } from "vuex";
-import axios from 'axios';
+import axios from "axios";
 export default {
     components: {
         Head,
@@ -70,22 +72,29 @@ export default {
                 sourceId: types.intoPark.id,
                 start: types.times[0],
                 end: types.times[1],
-                reasonId: types.reason.id == -1 ?  undefined : types.reason.id,
+                reasonId: types.reason.id,
                 userid: this.$store.state.user.userInfo.admin_id,
                 roleStatus: this.$store.state.user.userInfo.roleStatus
             };
             this.axios
-                .post("/Student/retreatGardenReasonNum", {
-                    gardenId: types.park.id,
-                    reasonId: types.reason.id == -1 ?  undefined : types.reason.id
-                }, {
-                    cancelToken: source.token
-                })
+                .post(
+                    "/Student/retreatGardenReasonNum",
+                    {
+                        gardenId: types.park.id,
+                        reasonId: types.reason.id
+                    },
+                    {
+                        cancelToken: source.token
+                    }
+                )
                 .then(res => {
                     this.count = res.data.data.count;
-                });
+                })
+                .catch(function(error) {});
             this.axios
-                .post("/Student/record", savePost, {cancelToken: source.token})
+                .post("/Student/record", savePost, {
+                    cancelToken: source.token
+                })
                 .then(res => {
                     this.tableData = res.data.data;
                 })

@@ -34,12 +34,12 @@
 				this.init(data)
 			},
 			showFn(o) {
-				console.log(o)
 				this.$router.push({
 					path: "/EatShow",
 					query: {
 						eat_time: o.eat_time,
-						week: o.week
+                        week: o.week,
+                        garden_id: o.garden_id
 					}
 				})
 			},

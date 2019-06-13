@@ -1,7 +1,7 @@
 <template>
     <div class="Statistics">
         <Head title="资产明细"/>
-        <Fil :types="['park','class']" @change="getList"/>
+        <Fil :types="['park','class']" @change="getList" all/>
         <el-table :data="list" style="width: 100%;padding-bottom:50px;">
             <el-table-column prop="name" label="资产"></el-table-column>
             <el-table-column prop="addtime" label="购置时间" width="100"></el-table-column>

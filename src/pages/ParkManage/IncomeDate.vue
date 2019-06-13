@@ -7,6 +7,7 @@
             :month="false"
             :timesData="[moment().subtract(1, 'month').format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')]"
             @change="filterChange"
+            all
         />
         <!-- <el-table :data="list" border style="margin-top: 20px;">
             <el-table-column label="班级" align="center" prop="className"></el-table-column>
@@ -134,8 +135,8 @@
                 </el-table-column>
             </el-table-column>
             <el-table-column width="160px" align="center" label="合计" fixed="right">
-                <el-table-column width="80px" label="实入" align="center" prop="sjMoney"></el-table-column>
-                <el-table-column width="80px" label="进表实入" align="center" prop="yjMoney"></el-table-column>
+                <el-table-column width="80px" label="实入" align="center" prop="s"></el-table-column>
+                <el-table-column width="80px" label="进表实入" align="center" prop="j"></el-table-column>
             </el-table-column>
         </el-table>
     </div>
@@ -192,6 +193,31 @@ export default {
                 .post("Money/getIncomeList", { ...this.getParams() })
                 .then(res => {
                     const response = res.data.data ? res.data.data : [];
+                    response.forEach(v => {
+                        v.s = 0;
+                        v.j = 0;
+                        this.listTitle.forEach(vv => {
+                            v.s += v[`routineMoney${vv.id}`]
+                                ? +v[`routineMoney${vv.id}`]
+                                : 0;
+                            v.s -= v[`dprice${vv.id}`]
+                                ? +v[`dprice${vv.id}`]
+                                : 0;
+                            v.j += v[`jtMoney${vv.id}`]
+                                ? v[`jtMoney${vv.id}`]
+                                    ? +v[`jtMoney${vv.id}`]
+                                    : 0
+                                : v[`routineMoney${vv.id}`]
+                                ? +v[`routineMoney${vv.id}`]
+                                : 0;
+                            v.j -= v[`tprice${vv.id}`]
+                                ? +v[`tprice${vv.id}`]
+                                : 0;
+                            v.j -= v[`dprice${vv.id}`]
+                                ? +v[`dprice${vv.id}`]
+                                : 0;
+                        });
+                    });
                     this.list = response;
                 });
         }

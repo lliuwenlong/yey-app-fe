@@ -2,11 +2,12 @@
 <template>
     <div class="content">
         <Head title="指标统计"/>
-        <Fil :types="['park','class']" @change="change" :month="true"/>
+        <Fil :types="['park','class']" @change="change" :month="true" all/>
         <ul style="margin-top:5px;" v-if="list != null">
             <li
                 style="margin-bottom:5px;background-color:white;width:48%;display:inline-block;margin-left:1%;margin-right:1%;"
                 v-for="(v,i) in tabledata1"
+                :key="i"
             >
                 <Echarts
                     :options="options[i]"

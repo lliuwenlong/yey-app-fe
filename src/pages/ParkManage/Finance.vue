@@ -6,6 +6,7 @@
       :times="true"
       :timesData="[moment().subtract(1, 'month').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD')]"
       @change="getList"
+      all
     />
     <van-row class="fang">
       <van-col span="8" v-for="(v,i) in fang" :key="i">

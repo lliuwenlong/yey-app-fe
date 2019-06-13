@@ -4,7 +4,7 @@
         <Head title="考核管理" @click-left="onClickLeft"/>
         <van-tabs @click="onClick" :class="editF?'mb':''" v-model="index">
             <van-tab title="员工考核">
-                <Fil :types="['park','assessmentStaff']" :month="true" @change="change"/>
+                <Fil :types="['park','assessmentStaff']" :month="true" @change="change" all/>
                 <van-collapse
                     v-model="activeNames"
                     v-for="(item,index) in tabledata"
@@ -36,7 +36,7 @@
                 </van-collapse>
             </van-tab>
             <van-tab title="园长考核">
-                <Fil :types="['park','assessmentPark']" :month="true" @change="change"/>
+                <Fil :types="['park','assessmentPark']" :month="true" @change="change" all/>
                 <van-collapse
                     v-model="activeNames"
                     v-for="(item,index) in tabledata1"

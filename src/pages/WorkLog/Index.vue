@@ -9,7 +9,7 @@
             @click-right="add"
         />
         <div>
-            <Fil :day="true" :types="['park','post']" @change="confirm"/>
+            <Fil :day="true" :types="['park','post']" @change="confirm" all/>
         </div>
 		<van-cell :title="`${item.addtime}_${item.staff_name}`" v-for="(item,index) in msg" :key="index" is-link @click="staffName(item)"/>
         <!-- <van-collapse v-model="activeNames" v-for="(item,index) in msg" :key="index" accordion>

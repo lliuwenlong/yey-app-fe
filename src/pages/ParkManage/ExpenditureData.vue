@@ -3,9 +3,10 @@
         <Head title="支出数据" />
         <Fil
             :types="['park','class']"
-            :times="true"
+            times
             :timesData="[moment().subtract(1, 'month').format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')]"
             @change="filterChange"
+            all
         /> 
         <el-table :data="list" border>
                 <el-table-column
