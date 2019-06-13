@@ -3,12 +3,11 @@
     <div class="content">
         <Head
             title="学生档案"
-            :right="userInfo.roleStatus !== 5 ? '添加学生' : ''"
             @click-right="onClickRight"
         />
         <Fil :types="['park','class','intoPark', 'reason']" :times="true" @change="change" />
         <div>
-            <div class="countNum">
+            <div class="countNum" v-if="$store.state.user.userInfo.roleStatus != 5">
                 <ul>
                     <li>
                         退园人数：
@@ -38,7 +37,7 @@
 import Head from "@/components/Header.vue";
 import Fil from "@/components/Filter.vue";
 import { mapState } from "vuex";
-
+import axios from 'axios';
 export default {
     components: {
         Head,
@@ -50,7 +49,8 @@ export default {
             techang: [],
             tableData: [],
             tuiArr: [],
-            count: 0
+            count: 0,
+            source: null
         };
     },
     methods: {
@@ -60,6 +60,10 @@ export default {
             }
         },
         init(types) {
+            const CancelToken = axios.CancelToken;
+            const source = CancelToken.source();
+            this.source && this.source.cancel();
+            this.source = source;
             let savePost = {
                 parkId: types.park.id,
                 classId: types.class.id,
@@ -74,12 +78,14 @@ export default {
                 .post("/Student/retreatGardenReasonNum", {
                     gardenId: types.park.id,
                     reasonId: types.reason.id == -1 ?  undefined : types.reason.id
+                }, {
+                    cancelToken: source.token
                 })
                 .then(res => {
                     this.count = res.data.data.count;
                 });
             this.axios
-                .post("/Student/record", savePost)
+                .post("/Student/record", savePost, {cancelToken: source.token})
                 .then(res => {
                     this.tableData = res.data.data;
                 })

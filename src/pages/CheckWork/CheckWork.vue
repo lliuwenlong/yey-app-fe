@@ -112,7 +112,8 @@ export default {
     methods: {
         getStudentInfo() {
             this.axios.post('/TeacherApp/getStudentInfo', {
-                userId: this.userInfo.admin_id
+                userId: this.userInfo.admin_id,
+                staffId: this.userInfo.staff_id
             }).then(res => {
                 this.studentInfo = res.data.data;
             });
@@ -120,7 +121,8 @@ export default {
         getStudentList() {
             const url = this.userInfo.roleStatus === 7 ? 'TeacherApp/getSpecialityAttendance' : '/TeacherApp/getStudentList';
             this.axios.post(url, {
-                userId: this.userInfo.admin_id
+                userId: this.userInfo.admin_id,
+                staffId: this.userInfo.staff_id
             }).then(res => {
                 this.studentList = res.data.data;
             });

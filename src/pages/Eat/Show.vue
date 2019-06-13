@@ -82,7 +82,7 @@
 		created() {
 			this.axios.post("Diet/month_week", {
 				eat_time: this.$route.query.eat_time,
-				week: this.$route.query.week
+				// week: this.$route.query.week
 			}).then(res => {
 				this.count = res.data.data.count;
 				delete res.data.data.count;

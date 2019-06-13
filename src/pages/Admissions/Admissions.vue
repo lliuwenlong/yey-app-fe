@@ -43,10 +43,12 @@ export default {
                 });
         },
         showFn(o) {
+            console.log(o);
             this.$router.push({
                 path: '/AdmissionsList',
                 query: {
-                    garden_id: o.garden_id
+                    garden_id: o.garden_id,
+                    ji_id: o.ji_id
                 }
             });
         }

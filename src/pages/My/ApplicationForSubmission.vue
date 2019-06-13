@@ -12,7 +12,7 @@
                 <el-form-item label="添加附件：">
                     <el-upload
                         class="upload-demo"
-                        action="/Api/Satff/mu_add"
+                        action="/Api/Staff/mu_add"
                         multiple
                         name="files"
                         :limit="1"
@@ -49,6 +49,7 @@
 </template>
 <script>
 import Head from "@/components/Header.vue";
+import {mapState} from 'vuex';
 export default {
     components: {
         Head
@@ -65,6 +66,9 @@ export default {
             options2: [],
             value: ""
         };
+    },
+    computed: {
+        ...mapState('user', ['userInfo'])
     },
     created() {
         this.axios.post("/inform/shou_shnepi").then(res => {

@@ -4,11 +4,15 @@ module.exports = {
     devServer: {
         proxy: {
             '/Api': {
-                target: 'http://192.168.1.24:80',   //代理接口
+                target: 'http://106.12.108.135:8911',   //代理接口
                 changeOrigin: true
             },
             '/api': {
-                target: 'http://192.168.1.24:80',   //代理接口
+                target: 'http://106.12.108.135:8911',   //代理接口
+                changeOrigin: true
+            },
+            '/public': {
+                target: 'http://106.12.108.135:8911',   //代理接口
                 changeOrigin: true
             }
         }

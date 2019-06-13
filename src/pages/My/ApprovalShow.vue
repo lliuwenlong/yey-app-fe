@@ -8,7 +8,7 @@
             <van-field label="事项:" v-model="data.work_name" />
         </van-cell-group>
         <van-cell-group>
-            <van-field label="描述:" type="textarea" v-model="data.desc" />
+            <van-field label="描述:" type="textarea" v-model="data.work_desc" />
         </van-cell-group>
         <van-cell-group>
             <van-panel title="附件:">
@@ -55,6 +55,7 @@
                     .then(res => {
                         this.getList()
                         this.$message(res.data.msg);
+                        this.$router.go(-1);
                     });
             }
         },

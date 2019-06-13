@@ -74,7 +74,7 @@
                     </van-row>
                 </van-swipe-item>
                 <van-swipe-item>
-                    <div class="van-swipe-item-wrap">
+                    <div class="van-swipe-item-wrap" style="height: 500px;">
                         <van-row type="flex" justify="center">
                             <van-col span="24">
                                 <div class="width: 100%">
@@ -420,8 +420,8 @@ export default {
     computed: {
         ...mapState("user", ["userInfo"]),
         getAnQnOptions() {
-            const name = this.list.anquan ? this.list.anquan.name : '';
-            const two = this.list.anquan ? this.list.anquan.two : 0;
+            const name = this.list.chuqin ? this.list.chuqin.name : '';
+            const two = this.list.chuqin ? this.list.chuqin.two : 0;
             return {
                 title: {
                     text: `${name}: ${two}%`,

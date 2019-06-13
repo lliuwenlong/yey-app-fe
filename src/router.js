@@ -71,6 +71,7 @@ import SettlementDetails from '@/pages/SpecialTeacher/SettlementDetails';
 import CleverInstantaneous from '@/pages/SpecialTeacher/CleverInstantaneous';
 import CheckWork from '@/pages/CheckWork/CheckWork'
 import Pay from '@/pages/My/Pay'
+import GardenManageStudentAdd from '@/pages/Admissions/info';
 Vue.use(Router)
 
 export default new Router({
@@ -323,6 +324,10 @@ export default new Router({
             path: '/Pay',
             name: "Pay",
             component: Pay
+        }, {
+            path: '/gardenManage_student_add',
+            name: "gardenManage_student_add",
+            component: GardenManageStudentAdd
         }
     ]
 });

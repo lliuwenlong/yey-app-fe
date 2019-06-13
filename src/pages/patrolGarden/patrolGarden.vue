@@ -2,13 +2,19 @@
     <div class="patrolGarden">
         <Head title="督导日志"/>
         <!-- <Fil :types="['park','class']"/> -->
-        <van-cell :title="v.name" is-link v-for="(v,i) in list" :key="i" @click="go(v.id)"/>
+        <div v-if="userInfo.roleStatus == 4 ">
+            <van-cell :title="v.name" is-link v-for="(v,i) in list" :key="i" @click="go(v.id)" v-show="v.id == userInfo.garden_id "/>
+        </div>
+        <div v-else>
+            <van-cell :title="v.name" is-link v-for="(v,i) in list" :key="i" @click="go(v.id)"/>
+        </div>
     </div>
 </template>
 
 <script>
 import Fil from "@/components/Filter.vue";
 import Head from "@/components/Header.vue";
+import { mapState } from "vuex";
 export default {
     components: {
         Head,
@@ -18,6 +24,9 @@ export default {
         return {
             list: []
         };
+    },
+    computed: {
+        ...mapState("user", ["userInfo"])
     },
     methods: {
         go(id) {

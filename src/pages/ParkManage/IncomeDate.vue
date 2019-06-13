@@ -133,7 +133,7 @@
                     </template>
                 </el-table-column>
             </el-table-column>
-            <el-table-column width="160px" align="center" label="合计">
+            <el-table-column width="160px" align="center" label="合计" fixed="right">
                 <el-table-column width="80px" label="实入" align="center" prop="sjMoney"></el-table-column>
                 <el-table-column width="80px" label="进表实入" align="center" prop="yjMoney"></el-table-column>
             </el-table-column>
