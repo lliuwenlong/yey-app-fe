@@ -7,16 +7,13 @@
                 <van-col span="4" class="Tl">{{ v.name }}</van-col>
                 <van-col span="4" class="Tc">{{ v.idea }}</van-col>
                 <van-col span="4" class="Tr">{{ v.user_name }}</van-col>
-                <van-col span="3" class="Tc">
+                <van-col span="4" class="Tc">
                     <van-button type="default" size="mini" @click="into(v)">入园</van-button>
                 </van-col>
-                <van-col span="3" class="Tc">
-                    <van-button type="default" size="mini" @click="lookDeic(v)">退园</van-button>
-                </van-col>
-                <van-col span="3" class="Tc">
+                <van-col span="4" class="Tc">
                     <van-button type="default" size="mini" @click="addList(v)">填写</van-button>
                 </van-col>
-                <van-col span="3" class="Tc">
+                <van-col span="4" class="Tc">
                     <van-button type="default" size="mini" @click="lookDeic(v)">查看</van-button>
                 </van-col>
             </van-row>

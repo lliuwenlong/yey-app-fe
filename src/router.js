@@ -56,6 +56,7 @@ import Task from '@/pages/ParkManage/Task'
 import Financial from '@/pages/ParkManage/financial'
 
 import Teach from '@/pages/Teach/List'
+import TeTeach from '@/pages/Teach/TeList'
 
 import Describe from '@/pages/Home/Describe'
 
@@ -72,6 +73,7 @@ import CleverInstantaneous from '@/pages/SpecialTeacher/CleverInstantaneous';
 import CheckWork from '@/pages/CheckWork/CheckWork'
 import Pay from '@/pages/My/Pay'
 import GardenManageStudentAdd from '@/pages/Admissions/info';
+import EducationManagement from '@/pages/Teach/EducationManagement';
 Vue.use(Router)
 
 export default new Router({
@@ -328,6 +330,14 @@ export default new Router({
             path: '/gardenManage_student_add',
             name: "gardenManage_student_add",
             component: GardenManageStudentAdd
+        }, {
+            path: '/EducationManagement',
+            name: 'EducationManagement',
+            component: EducationManagement
+        }, {
+            path: '/TeTeach',
+            name: 'TeTeach',
+            component: TeTeach
         }
     ]
 });

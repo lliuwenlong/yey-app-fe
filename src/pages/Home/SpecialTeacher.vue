@@ -38,7 +38,7 @@
                 </router-link>
             </el-col>
             <el-col :span="12">
-                <router-link to="/Teach" style="color:#000;">
+                <router-link to="/TeTeach" style="color:#000;">
                     <div class="content-main">
                         <div class="content-main-img">
                             <img src="@/assets/images/manage.png">

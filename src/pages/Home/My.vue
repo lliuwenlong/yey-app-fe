@@ -16,7 +16,7 @@
 			</van-col>
 		</van-row>
 		<van-cell title="工资条" is-link to="/Articlewages" v-if="userInfo.roleStatus !== 5"/>
-		<van-cell title="审批" is-link to="/Approval" v-if="userInfo.roleStatus !== 5"/>
+		<van-cell title="审批" is-link to="/Approval" v-if="userInfo.roleStatus !== 5 && userInfo.roleStatus != 7"/>
 		<van-cell title="学生档案" is-link to="/Studentfile" v-if="userInfo.roleStatus !== 5"/>
 		<van-cell title="缴费" is-link to="/Pay" v-if="userInfo.roleStatus === 5"/>
 		<van-cell title="退出登录" @click="logout"/>

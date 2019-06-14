@@ -225,6 +225,7 @@ export default {
     },
     data() {
         return {
+            queryData: JSON.parse(this.$route.query.data),
             params: this.$route.query.data ? JSON.parse(this.$route.query.data) : {},
             message: [],
             messageF: false,
@@ -243,13 +244,25 @@ export default {
         };
     },
     created() {
+        const {source_id, garden_id, sex, class_id} = this.queryData;
+        this.params = {
+            ...this.params,
+            sexName: sex == 1 ? '男' : '女'
+        };
         this.axios
             .post("/student/garden", {
                 gardenid: this.$store.state.user.staffId
             })
             .then(res => {
-                this.message = res.data.data.message;
-                this.parkList = res.data.data.park;
+                this.message = res.data.data.message ? res.data.data.message : [];
+                this.parkList = res.data.data.park ? res.data.data.park : [];
+                const {name: sourceName = ''} = this.message.find(item => item.id == source_id);
+                const {name: gardenName = ''} = this.parkList.find(item => item.id == garden_id);
+                this.params = {
+                    ...this.params,
+                    source: sourceName,
+                    gardenName
+                };
             });
         this.axios.post("/Money/getCost").then(res => {
             this.params.cost = res.data.data.filter(v => {
@@ -257,13 +270,16 @@ export default {
             });
             this.params = { ...this.params };
         });
+        this.gardenChage(true);
+        this.classChage(class_id);
     },
     methods: {
-        gardenChage() {
+        gardenChage(flag) {
+            const {class_id} = this.queryData;
             this.params = {
                 ...this.params,
                 teach_id: "",
-                class_id: ""
+                class_id: flag ? "" : this.params.class_id,
             };
             this.techangListII = [];
             this.axios
@@ -273,7 +289,12 @@ export default {
                 })
                 .then(res => {
                     this.techangList = res.data.data.techang;
-                    this.classList = res.data.data.class;
+                    this.classList = res.data.data.class ? res.data.data.class : [];
+                    const {name: className = ''} = this.classList.find(item => item.id == class_id);
+                    this.params = {
+                        ...this.params,
+                        className
+                    };
                 });
             this.axios
                 .post("/Student/showRetreatGardenReason", {
@@ -310,19 +331,6 @@ export default {
                 source_id,
                 teach_id
             } = this.params;
-            console.log(family_name,
-                relation,
-                tel,
-                name,
-                sex,
-                birthday,
-                home,
-                class_id,
-                garden_id,
-                jie_state,
-                cost,
-                source_id,
-                teach_id);
             if (
                 (family_name &&
                     relation &&

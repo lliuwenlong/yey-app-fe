@@ -92,7 +92,7 @@
                 </router-link>
             </van-col>
             <van-col span="6">
-                <router-link to="/Teach" style="color:#000;">
+                <router-link to="/EducationManagement" style="color:#000;">
                     <dl>
                         <dt>
                             <img src="@/assets/images/manage.png">
