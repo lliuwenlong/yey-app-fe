@@ -74,6 +74,7 @@ import CheckWork from '@/pages/CheckWork/CheckWork'
 import Pay from '@/pages/My/Pay'
 import GardenManageStudentAdd from '@/pages/Admissions/info';
 import EducationManagement from '@/pages/Teach/EducationManagement';
+import BannerDeic from '@/pages/Home/bannerDeic.vue';
 Vue.use(Router)
 
 export default new Router({
@@ -110,6 +111,11 @@ export default new Router({
                     path: 'Teachbooks',
                     name: "Teachbooks",
                     component: Teachbooks
+                },
+                {
+                    path: 'bannerDeic',
+                    name: 'bannerDeic',
+                    component: BannerDeic
                 }
             ]
         },

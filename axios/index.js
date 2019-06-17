@@ -13,7 +13,7 @@ const service = axios.create({
   // baseURL:'http://192.168.2.4:80/Api',
   // baseURL:'',
   // baseURL:'/index.php/Api',
-  timeout: 5000 // 请求超时时间
+  timeout: 10000 // 请求超时时间
 })
 
 /** **** request拦截器==>对请求参数做处理 ******/

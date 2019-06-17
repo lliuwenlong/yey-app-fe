@@ -3,7 +3,8 @@
     <div class="content">
         <Head title="园所备用金"/>
         <Fil :types="['park']" :day="true" @change="change" all/>
-        <div>
+        <Table :title="title" :list="techang"></Table>
+        <!-- <div>
             <table class="table" v-for="(item,index) in techang" :key="index">
                 <tr>
                     <td>前台备用现金</td>
@@ -49,7 +50,7 @@
                     <td>{{item.yu_money}}</td>
                 </tr>
             </table>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -58,17 +59,21 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import Head from "@/components/Header.vue";
 import Fil from "@/components/Filter.vue";
+import Table from "@/components/Table.vue";
 export default {
     //import引入的组件需要注入到对象中才能使用
     components: {
         Head,
-        Fil
+        Fil,
+        Table
     },
     data() {
         //这里存放数据
         return {
             count: "",
-            techang: []
+            techang: [],
+            title: [],
+            resTitle: []
         };
     },
     //方法集合
@@ -76,8 +81,7 @@ export default {
         change(types) {
             this.init(types);
         },
-        init(types) {
-            console.log(types);
+        init(types = {day: '', park: {}}) {
             let savePost = {
                 addtime: types.day,
                 garden_id: types.park.id
@@ -85,7 +89,15 @@ export default {
             this.axios
                 .post("/Money/price", savePost)
                 .then(res => {
-                    this.techang = res.data.data;
+                    const list = res.data.data;
+                    const arr = [];
+                    for (let i in list) {
+                        arr.push({
+                            ...list[i],
+                            id: i
+                        });
+                    }
+                    this.techang = [...arr];
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -95,6 +107,14 @@ export default {
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
         this.init();
+        this.axios.post('/Money/pricedatashow').then(res => {
+            this.resTitle = res.data.data.map(item => {
+                return {
+                     ...item, label: item.name, data: `name${item.id}`, width: 100
+                };
+            });
+            this.title.splice(1, 0, ...this.resTitle)
+        });
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {}

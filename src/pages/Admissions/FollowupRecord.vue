@@ -6,7 +6,7 @@
                 <h4>负责人：{{v.fuzeren}}</h4>
                 <span style="line-height:30px;">意向：{{v.status}}</span>
                 <span class="fr" style="float: right;margin-top:5px;">
-                    <a :href="v.img" style="color:blue;cursor:pointer;text-decoration:underline;">附件</a>
+                    <a :href="`/public/img/${v.img}`" style="color:blue;cursor:pointer;text-decoration:underline;">附件</a>
                     时间：{{v.time}}
                 </span>
                 <div

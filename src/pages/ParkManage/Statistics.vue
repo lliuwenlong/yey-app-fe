@@ -50,7 +50,12 @@ export default {
         edit() {
             let arr = [];
             for (const v of this.list) {
+                console.log(v);
                 if (v.realQuantity_o != v.real_quantity) {
+                    if (v.number < v.real_quantity) {
+                        this.$message.warning('核销数量不能大于资产数量');
+                        continue;
+                    }
                     arr.push(
                         this.axios.post("/money/real_quantity_add", {
                             id: v.id,
@@ -61,6 +66,8 @@ export default {
             }
             Promise.all(arr).then(res => {
                 this.$message.success(res[0].data.msg);
+                this.getList();
+            }).catch(() => {
                 this.getList();
             });
         }

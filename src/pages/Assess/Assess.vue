@@ -4,7 +4,7 @@
         <Head title="考核管理" @click-left="onClickLeft"/>
         <van-tabs @click="onClick" :class="editF?'mb':''" v-model="index">
             <van-tab title="员工考核">
-                <Fil :types="['park','assessmentStaff']" :month="true" @change="change" all/>
+                <Fil :types="['park','assessmentStaff']" :times="true" @change="change" all/>
                 <van-collapse
                     v-model="activeNames"
                     v-for="(item,index) in tabledata"
@@ -100,6 +100,7 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import Head from "@/components/Header.vue";
 import Fil from "@/components/Filter.vue";
+import axios from "axios";
 export default {
     //import引入的组件需要注入到对象中才能使用
     components: {
@@ -118,25 +119,55 @@ export default {
             checked: [],
             result: [],
             editF: false,
-            index: 0
+            index: 0,
+            source: null
         };
     },
     //方法集合
     methods: {
         init(types) {
-            console.log(types);
+            const CancelToken = axios.CancelToken;
+            const source = CancelToken.source();
+            this.source && this.source.cancel();
+            this.source = source;
             if (this.indexList == 0) {
                 // 员工
                 let saveLists = {
                     itype: 2,
                     orId: types.park.id,
                     hId: types.assessmentStaff.id,
-                    start: types.month
+                    starttime: types.times[0],
+                    endtime: types.times[1]
                 };
+                // this.axios
+                //     .post("/TeacherApp/Assessment", saveLists)
+                //     .then(res => {
+                //         console.log(res.data.data);
+                //         const list = {};
+                //         this.tabledata = res.data.data;
+                //     })
+                //     .catch(function(error) {
+                //         console.log(error);
+                //     });
                 this.axios
-                    .post("/TeacherApp/Assessment", saveLists)
+                    .post("/scoring/staffScore", saveLists, {
+                        cancelToken: source.token
+                    })
                     .then(res => {
-                        this.tabledata = res.data.data;
+                        const {content = []} = res.data.data;
+                        const list = {};
+                        content.forEach(item => {
+                            if (!list[item.postName]) {
+                                list[item.postName] = [];
+                            }
+                            list[item.postName].push({
+                                count: item.count,
+                                postName: item.postName,
+                                staffId: item.staffId,
+                                staff_name: item.staffName
+                            });
+                            this.tabledata = list;
+                        });
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -147,10 +178,14 @@ export default {
                     itype: 1,
                     orId: types.park.id,
                     hId: types.assessmentPark.id,
-                    start: types.month
+                    start: types.month,
+                    starttime: types.times[0],
+                    endtime: types.times[1]
                 };
                 this.axios
-                    .post("/TeacherApp/Assessment", saveList)
+                    .post("/TeacherApp/Assessment", saveList, {
+                        cancelToken: source.token
+                    })
                     .then(res => {
                         this.tabledata1 = res.data.data;
                     })

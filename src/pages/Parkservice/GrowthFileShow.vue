@@ -1,14 +1,17 @@
 <template>
     <div>
         <Head title="档案详情"/>
-        <van-panel title="学生姓名" :desc="data?data.name:list[0]?list[0].studentname:''"></van-panel>
-        <van-panel :title="v.desc" v-for="(v,i) in list" :key="i">
-            <ul>
-                <li v-for="(vv,ii) in v.img" :key="ii">
-                    <img :src="'/public/img/'+vv">
-                </li>
-            </ul>
-        </van-panel>
+        <div v-for="(v,i) in list" :key="i">
+            <van-panel title="学生姓名" :desc="v.studentname"></van-panel>
+            <van-panel :title="v.desc">
+                <ul>
+                    <li v-for="(vv,ii) in v.img" :key="ii">
+                        <img :src="'/public/img/'+vv">
+                    </li>
+                </ul>
+            </van-panel>
+        </div>
+
     </div>
 </template>
 
@@ -57,7 +60,6 @@ export default {
             width: 80px;
             margin-right: 10px;
             text-align: center;
-
             img {
                 width: 100%;
                 height: 80px;

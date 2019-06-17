@@ -7,6 +7,7 @@
             times
             all
             @change="change"
+            v-if="userInfo.roleStatus != 7 && userInfo.roleStatus != 5"
         />
         <div>
             <div class="countNum" v-if="$store.state.user.userInfo.roleStatus != 5">
@@ -61,7 +62,7 @@ export default {
                 this.init(types);
             }
         },
-        init(types) {
+        init(types = {park: {}, class: {}, intoPark: {}, times: [], reason: {}}) {
             const CancelToken = axios.CancelToken;
             const source = CancelToken.source();
             this.source && this.source.cancel();

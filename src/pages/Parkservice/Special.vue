@@ -54,8 +54,9 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-import Head from '@/components/Header.vue'
-import Fil from '@/components/Filter.vue'
+import Head from '@/components/Header.vue';
+import Fil from '@/components/Filter.vue';
+import axios from 'axios';
 export default {
 //import引入的组件需要注入到对象中才能使用
     components: {
@@ -66,6 +67,7 @@ export default {
         return {
             count:'',
             techang:[],
+            source: null
         };
     },
     //方法集合
@@ -74,7 +76,11 @@ export default {
             this.init(types)
         },
         init(types){
-            console.log(types)
+            const CancelToken = axios.CancelToken;
+            const source = CancelToken.source();
+            this.source && this.source.cancel();
+            this.source = source;
+
             let saveList = {
                 istype:1,
                 parkId:types.park.id,
@@ -83,7 +89,9 @@ export default {
                 starttime:types.times[0],
                 endtime:types.times[1]
             }
-            this.axios.post('/Techang/counttechang',saveList)
+            this.axios.post('/Techang/counttechang',saveList, {
+                cancelToken: source.token
+            })
             .then(res=> {
                 this.count = res.data.count[0]
                 this.techang = res.data.techang

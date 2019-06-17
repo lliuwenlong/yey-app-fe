@@ -1,6 +1,11 @@
 <template>
     <div class="hello">
-        <van-swipe :autoplay="2000" indicator-color="white" :height="200">
+        <van-swipe :autoplay="2000" indicator-color="white" :height="200" v-if="imgData.length">
+            <van-swipe-item v-for="(item, key) in imgData" :key="key" @click="goClick(item)">
+                <img class="swipeImg" :src="`/public/img/${item.img}`">
+            </van-swipe-item>
+        </van-swipe>
+        <van-swipe :autoplay="2000" indicator-color="white" :height="200" v-else>
             <van-swipe-item>
                 <img class="swipeImg" src="@/assets/images/banner.png">
             </van-swipe-item>
@@ -414,7 +419,8 @@ export default {
                 ]
             },
             width: 0,
-            list: {}
+            list: {},
+            imgData: []
         };
     },
     computed: {
@@ -574,6 +580,12 @@ export default {
             this.axios.post("/Wages/app_tong").then(res => {
                 this.list = res.data.data.list;
             });
+        },
+        goClick(item) {
+            this.$router.push({
+                path: 'bannerDeic',
+                query: {data: JSON.stringify(item)}
+            });
         }
     },
     created() {
@@ -584,6 +596,12 @@ export default {
                 .then(res => {
                     this.count = res.data.data.count;
                 });
+        this.axios.post('/Banner/bannerapp', {
+            garden_id: this.userInfo.garden_id,
+            staff_id: this.userInfo.staff_id
+        }).then(res => {
+            this.imgData = [...res.data.data.slice(0, 5)];
+        });
     },
     mounted() {
         this.init();
